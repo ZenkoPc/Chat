@@ -29,9 +29,11 @@ await db.execute(`
 
 io.on('connection', async (socket) => {
     console.log('a user is connected!')
+    io.emit('new user', socket.handshake.auth.username)
 
     socket.on('disconnect', () => {
         console.log('a user is disconnected!')
+        io.emit('user exit', socket.handshake.auth.username)
     })
 
     socket.on('chat message', async (msg) => {

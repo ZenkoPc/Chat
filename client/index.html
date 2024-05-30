@@ -29,6 +29,20 @@
         const input = document.getElementById('input')
         const messages = document.getElementById('messages')
 
+        socket.on('new user', (username) => {
+            const item = `<li class='newUser'>
+                <small>${username} connected!</small>
+            </li>`
+            messages.insertAdjacentHTML('beforeend', item)
+        })
+
+        socket.on('user exit', (username) => {
+            const item = `<li class='newUser'>
+                <small>${username} disconnected!</small>
+            </li>`
+            messages.insertAdjacentHTML('beforeend', item)
+        })
+
         socket.on('chat message', (msg, serverOffset, username) => {
             const item = `<li>
                 <p>${msg}</p>
